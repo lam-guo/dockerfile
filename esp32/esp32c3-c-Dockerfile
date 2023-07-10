@@ -1,0 +1,8 @@
+FROM ubuntu
+ARG ESP_VERSION
+RUN apt update && apt install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+RUN mkdir -p /root/esp && cd /root/esp && git clone -b $ESP_VERSION --recursive https://github.com/espressif/esp-idf.git
+# ./export.sh may fail for unknown reasons, you can comment out the following line and run it multiple times inside the container by yourself.
+# ./export.sh 有可能失败？未知原因，可以屏蔽下面这行，自行进入容器多运行几遍
+# RUN cd /root/esp/esp-idf && sh ./install.sh && sh ./export.sh
+CMD ["/bin/bash"]
